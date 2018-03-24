@@ -1,0 +1,50 @@
+{
+  "name": "coffee_cleaner_nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wzolleis/coffee_cleaner_nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wzolleis/coffee_cleaner_nodejs/issues"
+  },
+  "homepage": "https://github.com/wzolleis/coffee_cleaner_nodejs#readme",
+  "devDependencies": {
+    "@types/body-parser": "^1.16.8",
+    "@types/cors": "^2.8.3",
+    "@types/express": "^4.11.1",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.7.35",
+    "@types/node": "^9.6.0",
+    "body-parser": "^1.15.2",
+    "cors": "^2.8.0",
+    "del": "2.2.0",
+    "eslint": "^4.19.1",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "http": "0.0.0",
+    "method-override": "^2.3.6",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.17.2",
+    "ts-node": "^5.0.1",
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.2"
+  },
+  "dependencies": {
+    "express": "^4.11.1",
+    "pg-promise": "^8.2.2"
+  }
+}

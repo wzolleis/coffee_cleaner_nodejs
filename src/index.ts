@@ -3,7 +3,7 @@ import cors from "cors";
 import express from "express";
 import methodOverride from "method-override";
 import logger from "morgan";
-import { findAllCleaners } from "./cleaner/cleaner_api";
+import { findAllCleaners, saveCleaner } from "./cleaner/cleaner_api";
 
 const app = express();
 
@@ -13,8 +13,11 @@ app.use(methodOverride());
 app.use(cors());
 
 app.get("/cc/api/cleaner", async (req: any, res: any) => {
-    const data = await findAllCleaners();
-    res.send(data);
+   findAllCleaners(res);
+});
+
+app.post("/cc/api/cleaner", async (req: any, res: any) => {
+    saveCleaner(req.body, res);
 });
 
 // tslint:disable-next-line:no-console

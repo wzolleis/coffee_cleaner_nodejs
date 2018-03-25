@@ -5,7 +5,8 @@
     ],
     "jsRules": {
         "quotemark": [true, "single"],
-        "ordered-imports": [true]
+        "ordered-imports": [true],
+        "no-console": [false, "error"]
     },
     "rules": {},
     "rulesDirectory": []

@@ -44,6 +44,7 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
+    "@types/pg-promise": "^5.4.3",
     "express": "^4.11.1",
     "pg-promise": "^8.2.2"
   }

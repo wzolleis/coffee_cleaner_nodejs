@@ -5,7 +5,7 @@ import methodOverride from "method-override";
 import logger from "morgan";
 import { cleanerApi } from "./cleaner/cleaner_api";
 import { Persistence } from "./persistence/Persistence";
-import { serverIo } from "./ServerIO";
+import { serverIo } from "./serverio/ServerIO";
 import { ICleaner } from "./types";
 
 const app = express();
@@ -39,6 +39,7 @@ app.post("/cc/api/cleaner/:id",  (req: any, res: any) => {
  */
 app.put("/cc/api/cleaner",  (req: any, res: any) => {
     const cleaner: ICleaner = req.body;
+    console.log("cleaner=", JSON.stringify(cleaner));
     cleanerApi.insertCleaner(cleaner);
     serverIo.sendResponse(res, {});
 });

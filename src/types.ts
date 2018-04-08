@@ -5,7 +5,5 @@ export interface ICleaner  {
 }
 
 export interface ICleanerDataMapper {
-    mapRows: (error: any, rows: any) => void;
-    error: () => any;
-    cleaner: () => ICleaner[];
+    mapRows: (rows: any) => ICleaner[];
 }

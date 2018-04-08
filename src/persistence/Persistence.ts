@@ -1,4 +1,6 @@
-import { Database, Statement, verbose } from "sqlite3";
+
+import Database from "better-sqlite3";
+import Statement from "better-sqlite3";
 import { createTables } from "../ddl/Schema";
 
 export class Persistence {
@@ -10,7 +12,6 @@ export class Persistence {
 
     public connect = (): void => {
         if (!this.database) {
-            verbose();
             this.database = new Database("./database/cleaner_db");
         }
     }
@@ -26,18 +27,18 @@ export class Persistence {
         createTables(this);
     }
 
-    public run(statement: string, callback?: (this: Statement, err: Error | null, rows: any[]) => void): void {
+    public run(statement: string, params: any = {}): void {
         if (this.database) {
-            this.database.run(statement, callback);
+            this.database.prepare(statement).run(params);
         } else {
             // tslint:disable-next-line:no-console
             console.log("database not connected");
         }
     }
 
-    public all(statement: string, callback?: (this: Statement, err: Error | null, rows: any[]) => void): any {
+    public all(sql: string, params: any = {} ): any {
         if (this.database) {
-            this.database.all(statement, callback);
+            return this.database.prepare(sql).all(params);
         }
     }
 }

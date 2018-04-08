@@ -1,7 +1,6 @@
-import { CleanerDataMapper } from "../persistence/DataMapper";
 import { Persistence } from "../persistence/Persistence";
-import { ICleaner, ICleanerDataMapper } from "../types";
 import { findAll, insert, update } from "./cleanerRepo";
+import { ICleaner } from '../types';
 
 export class Api {
     constructor() {
@@ -12,9 +11,7 @@ export class Api {
         const persistence = new Persistence();
         try {
             persistence.connect();
-            const dataMapper: ICleanerDataMapper = new CleanerDataMapper();
-            findAll(persistence, dataMapper);
-            return dataMapper.cleaner();
+            return findAll(persistence);
         } finally {
             persistence.close();
         }

@@ -10,13 +10,15 @@ export const findAll = (persistence: Persistence): ICleaner[] => {
 };
 
 export const insert = (cleaner: ICleaner, persistence: Persistence): void => {
-    persistence.run(INSERT_CLEANER_SQL(cleaner.name));
+    persistence.run(INSERT_CLEANER_SQL, {
+        name: cleaner.name,
+    });
 };
 
 export const update = (cleaner: ICleaner, persistence: Persistence): void => {
     const team: number | null = cleaner.team ? cleaner.team : null;
     const id: number = cleaner.id ? cleaner.id : -1;
-    persistence.run(UPDATE_CLEANER_SQL(), {
+    persistence.run(UPDATE_CLEANER_SQL, {
         id,
         name: cleaner.name,
         team,

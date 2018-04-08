@@ -1,6 +1,5 @@
 
 import Database from "better-sqlite3";
-import Statement from "better-sqlite3";
 import { createTables } from "../ddl/Schema";
 
 export class Persistence {
@@ -31,8 +30,7 @@ export class Persistence {
         if (this.database) {
             this.database.prepare(statement).run(params);
         } else {
-            // tslint:disable-next-line:no-console
-            console.log("database not connected");
+            console.error("database not connected");
         }
     }
 

@@ -8,10 +8,6 @@ export const FIND_ALL_CLEANER_SQL = (): string => {
     return `SELECT t.* FROM ${CLEANER_TABLE} t`;
 };
 
-export const INSERT_CLEANER_SQL = (name: string): string => {
-    return `insert into ${CLEANER_TABLE} (name) values ('${name}')`;
-};
+export const INSERT_CLEANER_SQL = "insert into cleaner (name) values (:name)";
 
-export const UPDATE_CLEANER_SQL = () => {
-    return `update ${CLEANER_TABLE} set team = ?, name = ? WHERE id = ?`;
-};
+export const UPDATE_CLEANER_SQL = "update cleaner set team = :team, name = :name WHERE id = :id";

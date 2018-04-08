@@ -15,16 +15,6 @@ app.use(cors());
 
 const router = express.Router();
 
-// route middleware that will happen on every request
-router.use((req, res, next) => {
-
-    // log each request to the console
-    console.log(req.method, req.url);
-
-    // continue doing what we were doing and go to the route
-    next();
-});
-
 app.route("/cc/api/cleaner")
     .get((req: any, res: any) => {
         const cleaners = cleanerApi.findAllCleaners();
@@ -43,6 +33,11 @@ app.route("/cc/api/cleaner/:id")
     .put((req: any, res: any) => {
         const cleaner: ICleaner = req.body;
         const id: number = req.params.id;
+        if (id !== cleaner.id) {
+            console.log("die id in der url stimmt nicht mit der id im body überein");
+            serverIo.sendError(res, 400, "die id in der url stimmt nicht mit der id im body überein");
+            return;
+        }
         cleanerApi.saveCleaner(cleaner);
         const data: object = {id};
         serverIo.sendResponse(res, data);

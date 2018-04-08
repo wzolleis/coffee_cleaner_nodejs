@@ -1,4 +1,5 @@
 export interface ICleaner  {
-    id: number;
+    id?: number;
     name: string;
+    team?: number;
 }

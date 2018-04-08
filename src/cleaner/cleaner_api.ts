@@ -1,16 +1,17 @@
-import { findAll, update } from "./cleanerRepo";
+import { findAll, insert, update } from "./cleanerRepo";
 import { ICleaner } from "./cleanerTypes";
 
-export const findAllCleaners = async (res: any): Promise<void> => {
-     const result: ICleaner[] = await findAll();
-      // tslint:disable-next-line:no-console
-     console.log("sending data =", result);
+export const findAllCleaners = (res: any): void => {
+     const result: ICleaner[] = findAll();
      res.send(result);
 };
 
-export const saveCleaner = async (cleaner: ICleaner, res: any): Promise<void>  => {
-    // tslint:disable-next-line:no-console
-    console.log("body", cleaner);
-    const result: number = await update(cleaner);
+export const saveCleaner = (cleaner: ICleaner, res: any): void  => {
+    const result: number = update(cleaner);
+    res.send(result);
+};
+
+export const insertCleaner = (cleaner: ICleaner, res: any): void  => {
+    const result: number = insert(cleaner);
     res.send(result);
 };

@@ -1,10 +1,22 @@
-import {IDatabase, IMain} from "pg-promise";
-import pgPromise from "pg-promise";
+import { Database} from "sqlite3";
+import { createTables } from "./ddl/Schema";
 
-const pgp: IMain = pgPromise({
-    // Initialization Options
-});
+// const memory: Database = new Database(":memory:");
+const file: Database = new Database("./database/cleaner_db");
 
-const cn: string = "postgres://postgres@localhost:5432/coffee_cleaner";
+export const connectDatabase = (): Database => {
+    // tslint:disable-next-line:no-console
+    console.log("connect to db");
+    return file;
+};
 
-export const db: IDatabase<any> = pgp(cn);
+export const closeDatabase = (db: Database): void => {
+    // tslint:disable-next-line:no-console
+    console.log("do not close database...", db);
+};
+
+export const prepareDatabase = (): void => {
+    // tslint:disable-next-line:no-console
+    console.log("prepare db");
+    createTables();
+};

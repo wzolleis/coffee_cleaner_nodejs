@@ -1,12 +1,10 @@
-import { CLEANER_ID_COL, CLEANER_NAME_COL, CLEANER_TABLE, CLEANER_TEAM_COL } from "../ddl/Schema";
+import { CLEANER_ID_COL, CLEANER_NAME_COL, CLEANER_TABLE, CLEANER_TEAM_COL } from "./Schema";
 
 export const CREATE_CLEANER_TABLE_SQL = (): string => {
     return `CREATE TABLE IF NOT EXISTS ${CLEANER_TABLE} (${CLEANER_ID_COL}, ${CLEANER_NAME_COL}, ${CLEANER_TEAM_COL})`;
 };
 
-export const FIND_ALL_CLEANER_SQL = (): string => {
-    return `SELECT t.* FROM ${CLEANER_TABLE} t`;
-};
+export const FIND_ALL_CLEANER_SQL =  "SELECT t.* FROM cleaner t";
 
 export const INSERT_CLEANER_SQL = "insert into cleaner (name) values (:name)";
 

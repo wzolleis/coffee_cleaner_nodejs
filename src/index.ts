@@ -4,6 +4,7 @@ import express from "express";
 import logger from "morgan";
 import { cleanerApi } from "./cleaner/cleaner_api";
 import { Persistence } from "./persistence/Persistence";
+import { schema } from "./persistence/Schema";
 import { serverIo } from "./serverio/ServerIO";
 import { ICleaner } from "./types";
 
@@ -56,7 +57,7 @@ app.route("/cc/api/cleaner/:id")
 router.post("/cc/api/database/prepare", () => {
     const persistence = new Persistence();
     persistence.connect();
-    persistence.prepare();
+    schema.createTables(persistence);
     persistence.close();
 });
 

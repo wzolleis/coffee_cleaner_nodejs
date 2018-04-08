@@ -10,7 +10,7 @@ import { ICleaner, ICleanerDataMapper, IDeletable } from "../types";
 
 export const findAll = (persistence: Persistence): ICleaner[] => {
     const dataMapper: ICleanerDataMapper = new CleanerDataMapper();
-    const rows: any = persistence.all(FIND_ALL_CLEANER_SQL());
+    const rows: any = persistence.all(FIND_ALL_CLEANER_SQL);
     return dataMapper.mapRows(rows);
 };
 

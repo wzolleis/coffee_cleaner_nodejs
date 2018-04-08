@@ -1,7 +1,12 @@
 import { CleanerDataMapper } from "../persistence/DataMapper";
 import { Persistence } from "../persistence/Persistence";
-import { FIND_ALL_CLEANER_SQL, INSERT_CLEANER_SQL, UPDATE_CLEANER_SQL } from "../persistence/Statements";
-import { ICleaner, ICleanerDataMapper } from "../types";
+import {
+    DELETE_CLEANER_SQL,
+    FIND_ALL_CLEANER_SQL,
+    INSERT_CLEANER_SQL,
+    UPDATE_CLEANER_SQL,
+} from "../persistence/Statements";
+import { ICleaner, ICleanerDataMapper, IDeletable } from "../types";
 
 export const findAll = (persistence: Persistence): ICleaner[] => {
     const dataMapper: ICleanerDataMapper = new CleanerDataMapper();
@@ -23,4 +28,8 @@ export const update = (cleaner: ICleaner, persistence: Persistence): void => {
         name: cleaner.name,
         team,
     });
+};
+
+export const remove = (toDelete: IDeletable, persistence: Persistence): void => {
+    persistence.run(DELETE_CLEANER_SQL, {id: toDelete.id});
 };

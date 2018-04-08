@@ -11,3 +11,5 @@ export const FIND_ALL_CLEANER_SQL = (): string => {
 export const INSERT_CLEANER_SQL = "insert into cleaner (name) values (:name)";
 
 export const UPDATE_CLEANER_SQL = "update cleaner set team = :team, name = :name WHERE id = :id";
+
+export const DELETE_CLEANER_SQL = "delete from cleaner where id = :id";

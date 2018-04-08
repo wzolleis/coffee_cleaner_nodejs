@@ -7,3 +7,7 @@ export interface ICleaner  {
 export interface ICleanerDataMapper {
     mapRows: (rows: any) => ICleaner[];
 }
+
+export interface IDeletable {
+    id: number;
+}

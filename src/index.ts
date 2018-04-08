@@ -23,7 +23,7 @@ app.route("/cc/api/cleaner")
     .post((req: any, res: any) => {
         const cleaner: ICleaner = req.body;
         cleanerApi.insertCleaner(cleaner);
-        serverIo.sendResponse(res, {});
+        serverIo.sendResponse(res);
     });
 
 /**
@@ -32,15 +32,22 @@ app.route("/cc/api/cleaner")
 app.route("/cc/api/cleaner/:id")
     .put((req: any, res: any) => {
         const cleaner: ICleaner = req.body;
-        const id: number = req.params.id;
+        const id: number = Number.parseInt(req.params.id);
         if (id !== cleaner.id) {
-            console.log("die id in der url stimmt nicht mit der id im body überein");
-            serverIo.sendError(res, 400, "die id in der url stimmt nicht mit der id im body überein");
+            const msg = `die id in der url '${id}' stimmt nicht mit der id im body '${cleaner.id}' überein`;
+            console.log(msg);
+            serverIo.sendError(res, 400, msg);
             return;
+        } else {
+            cleanerApi.saveCleaner(cleaner);
+            const data: object = {id};
+            serverIo.sendResponse(res, data);
         }
-        cleanerApi.saveCleaner(cleaner);
-        const data: object = {id};
-        serverIo.sendResponse(res, data);
+    })
+    .delete((req: any, res: any) => {
+        const id: number = req.params.id;
+        cleanerApi.deleteCleaner({id});
+        serverIo.sendResponse(res);
     });
 
 /**

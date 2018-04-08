@@ -12,6 +12,6 @@ export const INSERT_CLEANER_SQL = (name: string): string => {
     return `insert into ${CLEANER_TABLE} (name) values ('${name}')`;
 };
 
-export const UPDATE_CLEANER_SQL = (id: number, team: number | null) => {
-    return `update ${CLEANER_TABLE} set team = ${team} WHERE id = ${id}`;
+export const UPDATE_CLEANER_SQL = () => {
+    return `update ${CLEANER_TABLE} set team = ?, name = ? WHERE id = ?`;
 };

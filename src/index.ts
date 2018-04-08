@@ -1,7 +1,6 @@
 import bodyParser from "body-parser";
 import cors from "cors";
 import express from "express";
-import methodOverride from "method-override";
 import logger from "morgan";
 import { cleanerApi } from "./cleaner/cleaner_api";
 import { Persistence } from "./persistence/Persistence";
@@ -12,49 +11,56 @@ const app = express();
 
 app.use(logger("dev"));
 app.use(bodyParser.json());
-app.use(methodOverride());
 app.use(cors());
 
-/**
- * Alle Cleaner abfragen
- */
-app.get("/cc/api/cleaner",  (req: any, res: any) => {
-    const cleaners = cleanerApi.findAllCleaners();
-    serverIo.sendResponse(res, cleaners);
+const router = express.Router();
+
+// route middleware that will happen on every request
+router.use((req, res, next) => {
+
+    // log each request to the console
+    console.log(req.method, req.url);
+
+    // continue doing what we were doing and go to the route
+    next();
 });
+
+app.route("/cc/api/cleaner")
+    .get((req: any, res: any) => {
+        const cleaners = cleanerApi.findAllCleaners();
+        serverIo.sendResponse(res, cleaners);
+    })
+    .post((req: any, res: any) => {
+        const cleaner: ICleaner = req.body;
+        cleanerApi.insertCleaner(cleaner);
+        serverIo.sendResponse(res, {});
+    });
 
 /**
  * update cleaner
  */
-app.post("/cc/api/cleaner/:id",  (req: any, res: any) => {
-    const cleaner: ICleaner = req.body;
-    const id: number = req.params.id;
-    cleanerApi.saveCleaner(cleaner);
-    const data: object = {id};
-    serverIo.sendResponse(res, data);
-});
-
-/**
- * insert cleaner
- */
-app.put("/cc/api/cleaner",  (req: any, res: any) => {
-    const cleaner: ICleaner = req.body;
-    console.log("cleaner=", JSON.stringify(cleaner));
-    cleanerApi.insertCleaner(cleaner);
-    serverIo.sendResponse(res, {});
-});
+app.route("/cc/api/cleaner/:id")
+    .put((req: any, res: any) => {
+        const cleaner: ICleaner = req.body;
+        const id: number = req.params.id;
+        cleanerApi.saveCleaner(cleaner);
+        const data: object = {id};
+        serverIo.sendResponse(res, data);
+    });
 
 /**
  * Erzeugt das Datenbankschema (nur zum Test)
  */
-app.post("/cc/api/database/prepare", () => {
+router.post("/cc/api/database/prepare", () => {
     const persistence = new Persistence();
     persistence.connect();
     persistence.prepare();
     persistence.close();
-} );
+});
+
+app.use("/", router);
 
 app.listen(process.env.PORT || 8080, () => {
     // tslint:disable-next-line:no-console
-    console.log("Example app listening on port 8080!");
+    console.log("Coffe Cleaner app listening on port 8080!");
 });

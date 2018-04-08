@@ -1,6 +1,6 @@
 class ServerIO {
     public sendResponse(res: any, data: object) {
-        res.send(data);
+        res.json(data);
     }
 }
 

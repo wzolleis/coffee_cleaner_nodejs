@@ -16,5 +16,9 @@ export const insert = (cleaner: ICleaner, persistence: Persistence): void => {
 export const update = (cleaner: ICleaner, persistence: Persistence): void => {
     const team: number | null = cleaner.team ? cleaner.team : null;
     const id: number = cleaner.id ? cleaner.id : -1;
-    persistence.run(UPDATE_CLEANER_SQL(id, team));
+    persistence.run(UPDATE_CLEANER_SQL(), {
+        id,
+        name: cleaner.name,
+        team,
+    });
 };

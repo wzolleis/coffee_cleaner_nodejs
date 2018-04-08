@@ -8,7 +8,8 @@
         "object-literal-sort-keys": false
     },
     "rules": {
-        "no-console": [false]
+        "no-console": [false],
+        "quotemark": [true, "double"]
     },
     "rulesDirectory": []
 }

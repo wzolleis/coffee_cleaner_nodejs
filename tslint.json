@@ -5,9 +5,10 @@
     ],
     "jsRules": {
         "ordered-imports": [true],
-        "no-console": [false],
         "object-literal-sort-keys": false
     },
-    "rules": {},
+    "rules": {
+        "no-console": [false]
+    },
     "rulesDirectory": []
 }

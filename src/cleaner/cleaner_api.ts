@@ -1,17 +1,44 @@
+import { CleanerDataMapper } from "../persistence/DataMapper";
+import { Persistence } from "../persistence/Persistence";
+import { ICleaner, ICleanerDataMapper } from "../types";
 import { findAll, insert, update } from "./cleanerRepo";
-import { ICleaner } from "./cleanerTypes";
 
-export const findAllCleaners = (res: any): void => {
-     const result: ICleaner[] = findAll();
-     res.send(result);
-};
+export class Api {
+    constructor() {
+        // nothing
+    }
 
-export const saveCleaner = (cleaner: ICleaner, res: any): void  => {
-    const result: number = update(cleaner);
-    res.send(result);
-};
+    public findAllCleaners = (): ICleaner[] => {
+        const persistence = new Persistence();
+        try {
+            persistence.connect();
+            const dataMapper: ICleanerDataMapper = new CleanerDataMapper();
+            findAll(persistence, dataMapper);
+            return dataMapper.cleaner();
+        } finally {
+            persistence.close();
+        }
+    }
 
-export const insertCleaner = (cleaner: ICleaner, res: any): void  => {
-    const result: number = insert(cleaner);
-    res.send(result);
-};
+    public saveCleaner = (cleaner: ICleaner): void  => {
+        const persistence = new Persistence();
+        try {
+            persistence.connect();
+            update(cleaner, persistence);
+        } finally {
+            persistence.close();
+        }
+    }
+
+    public insertCleaner = (cleaner: ICleaner): void  => {
+        const persistence = new Persistence();
+        try {
+            persistence.connect();
+            insert(cleaner, persistence);
+        } finally {
+            persistence.close();
+        }
+    }
+}
+
+export const cleanerApi: Api = new Api();

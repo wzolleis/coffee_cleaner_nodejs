@@ -17,7 +17,7 @@ app.use(cors());
 const router = express.Router();
 
 app.route("/cc/api/cleaner")
-    .get((req: any, res: any) => {
+    .get((_, res: any) => {
         const cleaners = cleanerApi.findAllCleaners();
         serverIo.sendResponse(res, cleaners);
     })

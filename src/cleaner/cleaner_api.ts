@@ -5,7 +5,6 @@ import { deleteCleaner } from "./cleanerRepo"
 export class Api {
 
     public findAllCleaners = (): ICleaner[] => {
-        console.log("api: findAllCleaners");
         return findAll();
     }
 
@@ -18,7 +17,6 @@ export class Api {
     }
 
     public deleteCleaner = (toDelete: IDeletable): void => {
-        console.log("api: deleteCleaner");
         deleteCleaner(toDelete);
     }
 }

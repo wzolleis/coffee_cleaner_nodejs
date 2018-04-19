@@ -9,7 +9,7 @@ POST http://localhost:8080/cc/api/cleaner
 Content-Type: application/json
 
 {
-    "name": "Michl"
+    "name": "Jack"
 }
 
 ###

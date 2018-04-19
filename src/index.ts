@@ -22,6 +22,7 @@ app.route("/cc/api/cleaner")
         const cleaners = cleanerApi.findAllCleaners();
         serverIo.sendResponse(res, cleaners);
     })
+    // insert cleaner
     .post((req: any, res: any) => {
         const cleaner: ICleaner = req.body;
         cleanerApi.insertCleaner(cleaner);

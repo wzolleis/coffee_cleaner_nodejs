@@ -1,0 +1,17 @@
+{
+  "cleaner": [
+    {
+      "id": 1,
+      "name": "Franz Carlos",
+      "team": 2
+    },
+    {
+      "id": 3,
+      "name": "Michl"
+    },
+    {
+      "id": 4,
+      "name": "Michl"
+    }
+  ]
+}

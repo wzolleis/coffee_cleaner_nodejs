@@ -24,9 +24,13 @@ export const update = (cleaner: ICleaner): void => {
         return;
     }
 
-    // TODO - update me
+    db.get("cleaner")
+        .updateById(cleaner.id, cleaner)
+        .write();
 };
 
-export const deleteCleaner = (_: IDeletable): void => {
-    // TODO - delete me
+export const deleteCleaner = (toDelete: IDeletable): void => {
+    db.get("cleaner")
+        .removeById(toDelete.id)
+        .write();
 };

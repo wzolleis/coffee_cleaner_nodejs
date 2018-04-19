@@ -1,50 +1,25 @@
-import { Persistence } from "../persistence/Persistence";
 import { ICleaner, IDeletable } from "../types";
-import { findAll, insert, remove, update } from "./cleanerRepo";
+import { findAll, insert, update } from "./cleanerRepo";
+import { deleteCleaner } from "./cleanerRepo"
 
 export class Api {
-    constructor() {
-        // nothing
-    }
 
     public findAllCleaners = (): ICleaner[] => {
-        const persistence = new Persistence();
-        try {
-            persistence.connect();
-            return findAll(persistence);
-        } finally {
-            persistence.close();
-        }
+        console.log("api: findAllCleaners");
+        return findAll();
     }
 
-    public saveCleaner = (cleaner: ICleaner): void  => {
-        const persistence = new Persistence();
-        try {
-            persistence.connect();
-            update(cleaner, persistence);
-        } finally {
-            persistence.close();
-        }
+    public saveCleaner = (cleaner: ICleaner): void => {
+        update(cleaner);
     }
 
-    public insertCleaner = (cleaner: ICleaner): void  => {
-        const persistence = new Persistence();
-        try {
-            persistence.connect();
-            insert(cleaner, persistence);
-        } finally {
-            persistence.close();
-        }
+    public insertCleaner = (cleaner: ICleaner): void => {
+        insert(cleaner);
     }
 
     public deleteCleaner = (toDelete: IDeletable): void => {
-        const persistence = new Persistence();
-        try {
-            persistence.connect();
-            remove(toDelete, persistence);
-        } finally {
-            persistence.close();
-        }
+        console.log("api: deleteCleaner");
+        deleteCleaner(toDelete);
     }
 }
 

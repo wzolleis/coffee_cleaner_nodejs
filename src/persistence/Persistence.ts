@@ -1,36 +1,18 @@
-import Database from "better-sqlite3";
+import low from "lowdb";
+import FileSync from "lowdb/adapters/FileSync";
 
-export class Persistence {
-    private database: Database | undefined;
+const adapter = new FileSync("./database/db.json");
 
-    constructor() {
-        this.connect();
+export let db = low(adapter);
+
+export const initDatabase = () => {
+    if (!db.has("cleaner")) {
+        db.defaults({
+            cleaner: [{
+                id: 1,
+                name: "Roberto Carlos",
+                team: "2"
+            }]
+        }).write();
     }
-
-    public connect = (): void => {
-        if (!this.database) {
-            this.database = new Database("./database/cleaner_db");
-        }
-    }
-
-    public close = (): void => {
-        if (this.database) {
-            this.database.close();
-            this.database = undefined;
-        }
-    }
-
-    public run(statement: string, params: any = {}): void {
-        if (this.database) {
-            this.database.prepare(statement).run(params);
-        } else {
-            console.error("database not connected");
-        }
-    }
-
-    public all(sql: string, params: any = {}): any {
-        if (this.database) {
-            return this.database.prepare(sql).all(params);
-        }
-    }
-}
+};

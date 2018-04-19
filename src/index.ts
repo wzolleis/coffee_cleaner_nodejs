@@ -3,8 +3,7 @@ import cors from "cors";
 import express from "express";
 import logger from "morgan";
 import { cleanerApi } from "./cleaner/cleaner_api";
-import { Persistence } from "./persistence/Persistence";
-import { schema } from "./persistence/Schema";
+import { initDatabase } from "./persistence/Persistence";
 import { serverIo } from "./serverio/ServerIO";
 import { ICleaner } from "./types";
 
@@ -15,6 +14,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const router = express.Router();
+
+initDatabase();
 
 app.route("/cc/api/cleaner")
     .get((_, res: any) => {
@@ -50,16 +51,6 @@ app.route("/cc/api/cleaner/:id")
         cleanerApi.deleteCleaner({id});
         serverIo.sendResponse(res);
     });
-
-/**
- * Erzeugt das Datenbankschema (nur zum Test)
- */
-router.post("/cc/api/database/prepare", () => {
-    const persistence = new Persistence();
-    persistence.connect();
-    schema.createTables(persistence);
-    persistence.close();
-});
 
 app.use("/", router);
 
